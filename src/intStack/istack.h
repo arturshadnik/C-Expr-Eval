@@ -13,7 +13,15 @@
  * PRIVATE TYPE DECLARATION
  ********************/
 
-
+ typedef struct Node_s {
+	 int data;
+	 struct Node_s* next;
+ } Node_2;
+ 
+ struct List_s {
+	 Node_2* head;
+ } ;
+typedef struct List_s IntStack_t;
 
 
 /*********************
@@ -40,11 +48,6 @@ void istackPrint( IntStack_t stack  );
  * Return true iff the stack is empty
  */
 bool istackIsEmpty( IntStack_t stack );
-
-/*
- * Return true iff the stack is full
- */
-bool istackIsFull( IntStack_t stack );
 
 /*
  * Examine the item at the top of the stack
