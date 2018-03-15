@@ -18,6 +18,7 @@
 #include "ds/queue.h"
 #include "intStack/istack.h"
 
+
 // Helper Functions
 Queue_t tokenize(char* expression);
 bool isOperand(char* t);
@@ -234,8 +235,37 @@ Queue_t toPostfix(Queue_t infix_tokens)
 // POST: returns the result of evaluating the post-fix expression.
 int evalExpr(Queue_t expression)
 {
+	IntStack_t stack = istackCreate();
 
-	printf("NOT IMPLEMENTED YET -- that's your job ;-)\n");
-	return -1;  // STUB
+	int i;
+	int op1, op2, res;
 
+	ItemType item;
+	
+	while (expression.head->next != NULL){
+		for (i=0; *expression.head->next->data >= 48; i++){
+			istackPush(&stack, operandValue(qDequeue(&expression)));
+		}
+		item = qDequeue(&expression);
+		op1 = istackPop(&stack);
+		op2 = istackPop(&stack);
+		if ( *item == '+'){
+			res = op2 + op1;
+			istackPush(&stack, res);
+		}
+		if ( *item == '-'){
+			res = op2 - op1;
+			istackPush(&stack, res);
+		}
+		if ( *item == '*'){
+			res = op2 * op1;
+			istackPush(&stack, res);
+		}
+		if ( *item == '/'){
+			res = op2 / op1;
+			istackPush(&stack, res);
+		}
+	}
+	return istackTop(stack);
 }
+
